@@ -3,6 +3,8 @@ const http = require('http');
 //-- Crear el servidor
 const server = http.createServer();
 
+const PUERTO = 8081;
+
 //-- Función de retrollamada de petición recibida
 //-- Cada vez que un cliente realiza una petición
 //-- Se llama a esta función
@@ -21,4 +23,4 @@ server.on('request', atender);
 
 //-- Activar el servidor. A la escucha de peitciones
 //-- en el puerto 8080
-server.listen(8081);
+server.listen(PUERTO);
