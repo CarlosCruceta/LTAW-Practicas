@@ -1,7 +1,7 @@
 const http = require('http');
 
 //-- Definir el puerto a utilizar
-const PUERTO = 8080;
+const PUERTO = 8081;
 
 //-- Crear el servidor
 const server = http.createServer((req, res) => {
@@ -11,10 +11,18 @@ const server = http.createServer((req, res) => {
 
   //-- Cabecera que indica el tipo de datos del
   //-- cuerpo de la respuesta: Texto plano
-  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Type', 'html');
 
   //-- Mensaje del cuerpo
-  res.write("Soy el Happy server!!\n");
+  res.write(`
+  <!DOCTYPE html>
+    <html>
+        <body>
+            <p> Probando</p>
+            <b> Negrita!!</b>
+        </body>
+    </html>
+    `);
 
   //-- Terminar la respuesta y enviarla
   res.end();
