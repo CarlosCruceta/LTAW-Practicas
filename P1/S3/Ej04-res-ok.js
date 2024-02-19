@@ -3,7 +3,7 @@
 
 const http = require('http');
 
-const PUERTO = 8080;
+const PUERTO = 8082;
 
 //-- SERVIDOR: Bucle principal de atención a clientes
 const server = http.createServer((req, res) => {

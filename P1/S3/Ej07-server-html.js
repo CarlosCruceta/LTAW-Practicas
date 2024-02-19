@@ -5,7 +5,7 @@
 
 const http = require('http');
 
-const PUERTO = 8080;
+const PUERTO = 8082;
 
 //-- Texto HTML de la página principal
 const pagina_main = `
