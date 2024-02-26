@@ -27,7 +27,7 @@ const server = http.createServer((req, res)=>{
     if (url.pathname != '/') {
         code = 404;
         code_msg = "Not Found";
-        return sendResponse(res, code, code_msg, pagina_error);
+        return sendErrorResponse(res, code, code_msg, 'error.html');
         
     }
        // Leer el contenido de index.html de manera asíncrona
@@ -36,13 +36,28 @@ const server = http.createServer((req, res)=>{
             console.error("Error al leer index.html:", err);
             code = 500;
             code_msg = "Internal Server Error";
-            return sendResponse(res, code, code_msg, "Error interno del servidor");
+            return sendErrorResponse(res, code, code_msg, 'error.html');
         }
 
         // Enviar el contenido de index.html como respuesta
         sendResponse(res, code, code_msg, data);
     });
 });
+
+function sendErrorResponse(res, code, code_msg, errorPage) {
+    // Leer el contenido de error.html de manera asíncrona
+    fs.readFile(errorPage, 'utf8', (err, data) => {
+        if (err) {
+            console.error("Error al leer " + errorPage + ":", err);
+            code = 500;
+            code_msg = "Internal Server Error";
+            return sendResponse(res, code, code_msg, "Error interno del servidor");
+        }
+
+        // Enviar el contenido de error.html como respuesta
+        sendResponse(res, code, code_msg, data);
+    });
+}
 
 function sendResponse(res, code, code_msg, page) {
     res.statusCode = code;
