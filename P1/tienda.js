@@ -4,6 +4,7 @@
 //-- en HTML cuando se pide cualquier otro recurso
 
 const http = require('http');
+const fs = require('fs');
 
 const PUERTO = 8084;
 
