@@ -7,38 +7,6 @@ const http = require('http');
 
 const PUERTO = 8084;
 
-//-- Texto HTML de la página principal
-const pagina_main = `
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi tienda</title>
-</head>
-<body style="background-color: lightblue">
-    <h1 style="color: green">MI TIENDA</h1>
-</body>
-</html>
-`
-
-//-- Texto HTML de la página de error
-const pagina_error = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi tienda</title>
-</head>
-<body style="background-color: red">
-    <h1 style="color: white">ERROR!!!!</h1>
-</body>
-</html>
-`
 
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
@@ -46,7 +14,7 @@ const server = http.createServer((req, res)=>{
     //-- Valores de la respuesta por defecto
     let code = 200;
     let code_msg = "OK";
-    let page = pagina_main;
+
 
     //-- Analizar el recurso
     //-- Construir el objeto url con la url de la solicitud
@@ -58,17 +26,31 @@ const server = http.createServer((req, res)=>{
     if (url.pathname != '/') {
         code = 404;
         code_msg = "Not Found";
-        page = pagina_error;
+        return sendResponse(res, code, code_msg, pagina_error);
+        
     }
+       // Leer el contenido de index.html de manera asíncrona
+    fs.readFile('index.html', 'utf8', (err, data) => {
+        if (err) {
+            console.error("Error al leer index.html:", err);
+            code = 500;
+            code_msg = "Internal Server Error";
+            return sendResponse(res, code, code_msg, "Error interno del servidor");
+        }
 
-    //-- Generar la respusta en función de las variables
-    //-- code, code_msg y page
+        // Enviar el contenido de index.html como respuesta
+        sendResponse(res, code, code_msg, data);
+    });
+});
+
+function sendResponse(res, code, code_msg, page) {
     res.statusCode = code;
     res.statusMessage = code_msg;
-    res.setHeader('Content-Type','text/html');
+    res.setHeader('Content-Type', 'text/html');
     res.write(page);
     res.end();
-});
+}
+
 
 server.listen(PUERTO);
 
