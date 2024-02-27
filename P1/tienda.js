@@ -31,7 +31,7 @@ const server = http.createServer((req, res)=>{
         
     }
        // Leer el contenido de index.html de manera asíncrona
-    fs.readFile('index.html', 'utf8', (err, data) => {
+    fs.readFile('index.html', (err, data) => {
         if (err) {
             console.error("Error al leer index.html:", err);
             code = 500;
