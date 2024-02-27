@@ -24,24 +24,25 @@ const server = http.createServer((req, res)=>{
 
     //-- Cualquier recurso que no sea la página principal
     //-- genera un error
-    if (url.pathname != '/') {
-        code = 404;
-        code_msg = "Not Found";
-        return sendErrorResponse(res, code, code_msg, 'error.html');
-        
-    }
-       // Leer el contenido de index.html de manera asíncrona
-    fs.readFile('index.html', (err, data) => {
-        if (err) {
-            console.error("Error al leer index.html:", err);
-            code = 500;
-            code_msg = "Internal Server Error";
-            return sendErrorResponse(res, code, code_msg, 'error.html');
-        }
+    if (url.pathname === '/') {
+        fs.readFile('index.html', (err, data) => {
+            // Manejo de errores...
 
-        // Enviar el contenido de index.html como respuesta
-        sendResponse(res, code, code_msg, data);
-    });
+            sendResponse(res, code, code_msg, data);
+        });
+    } else {
+        // Manejar archivos estáticos (imágenes)
+        const filePath = path.join(__dirname, url.pathname);
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                code = 404;
+                code_msg = "Not Found";
+                return sendErrorResponse(res, code, code_msg, 'error.html');
+            }
+
+            sendResponse(res, code, code_msg, data);
+        });
+    }
 });
 
 function sendErrorResponse(res, code, code_msg, errorPage) {
