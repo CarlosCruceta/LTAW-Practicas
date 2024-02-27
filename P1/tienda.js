@@ -18,8 +18,8 @@ function print_req(req) {
     console.log("Version: " + req.httpVersion)
     console.log("Cabeceras: ");
   
-    for (name in req.headers)
-      console.log(`  * ${name}: ${req.headers[name]}`);
+    for (r_name in req.headers)
+      console.log(`  * ${r_name}: ${req.headers[r_name]}`);
   
     const myURL = new URL(req.url, 'http://' + req.headers['host']);
     console.log("URL completa: " + myURL.href);
