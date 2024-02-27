@@ -1,5 +1,5 @@
-//-- Ejemplo 7. MODULO HTTP
-//-- Servidor que devuelve una página en HTML cuando se le pide
+
+//-- Servidor que devuelve una página en HTML con mi tienda cuando se le pide
 //-- el recurso raiz (/), y devuelve una página de ERROR también
 //-- en HTML cuando se pide cualquier otro recurso
 
@@ -70,4 +70,4 @@ function sendResponse(res, code, code_msg, page) {
 
 server.listen(PUERTO);
 
-console.log("Ejemplo 7. Escuchando en puerto: " + PUERTO);
+console.log("Escuchando en puerto: " + PUERTO);
