@@ -8,6 +8,26 @@ const fs = require('fs');
 
 const PUERTO = 8084;
 
+function print_req(req) {
+
+    console.log("");
+    console.log("Solicitud");
+    console.log("====================");
+    console.log("Método: " + req.method);
+    console.log("Recurso: " + req.url);
+    console.log("Version: " + req.httpVersion)
+    console.log("Cabeceras: ");
+  
+    for (name in req.headers)
+      console.log(`  * ${name}: ${req.headers[name]}`);
+  
+    const myURL = new URL(req.url, 'http://' + req.headers['host']);
+    console.log("URL completa: " + myURL.href);
+    console.log("  Ruta: " + myURL.pathname);
+  
+    return myURL
+  }
+  
 
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
