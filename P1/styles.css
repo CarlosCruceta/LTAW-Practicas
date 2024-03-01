@@ -5,6 +5,17 @@ body {
     background-color: rgba(43, 182, 170, 0.781);
   }
   
+  .header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .center-text {
+    text-align: center;
+    margin: 20px;
+  }
   .container {
     display: flex;
     justify-content: center;
@@ -29,4 +40,8 @@ body {
     padding: 10px;
     border: none;
     cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
   }
