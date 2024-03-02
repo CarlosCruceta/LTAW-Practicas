@@ -1,8 +1,22 @@
+@font-face {
+  font-family: 'Exo';
+  src: url('exo/Exo-Black.otf');
+}
+
 body {
+    font-family: 'Exo', sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: rgba(43, 182, 170, 0.781);
+
+    background-color:hsla(163,0%,0%,1);
+    background-image:
+      radial-gradient(at 65% 50%, hsla(179,0%,0%,1) 0px, transparent 50%),
+      radial-gradient(at 52% 58%, hsla(172,7%,1%,1) 0px, transparent 50%),
+      radial-gradient(at 39% 53%, hsla(181,0%,0%,1) 0px, transparent 50%),
+      radial-gradient(at 95% 47%, hsla(181,0%,0%,1) 0px, transparent 50%),
+      radial-gradient(at 4% 56%, hsla(188,0%,0%,1) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(257,61%,61%,1) 0px, transparent 50%),
+      radial-gradient(at 75% 90%, hsla(172,49%,24%,1) 0px, transparent 50%);
   }
   
   .header {
@@ -24,32 +38,53 @@ body {
   }
   
   .product {
+    position: relative;
     text-align: center;
     margin: 20px;
     flex: 0 0 auto; 
-    transition: transform 0.3s ease; /* Añade transición para suavizar el efecto */
+    transition: transform 0.4s ease; /* Añade transición para suavizar el efecto */
 }
 
 .product:hover {
   transform: scale(1.3); /* Hace el producto un poco más grande al pasar el ratón */
+  background: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.product:hover button {
+  display: block;
+}
+.product button {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+}
+
+.product:hover button {
+  display: block;
+}
+  
+  
+.product img {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: contain;
 }
 
   
-  
-  .product img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  
-  button {
+ button {
     background-color: black;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
-  }
+    ;
+ }
 
-  button:hover {
+button:hover {
     background-color: #45a049;
-  }
+}
