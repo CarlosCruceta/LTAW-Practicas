@@ -1,40 +1,51 @@
-@font-face {
-  font-family: 'Exo';
-  src: url('exo/Exo-Black.otf');
-}
+
 
 body {
-    font-family: 'Exo', sans-serif;
+    font-family: 'dosis';
     margin: 0;
     padding: 0;
-
-    background-color:hsla(163,0%,0%,1);
-    background-image:
-      radial-gradient(at 65% 50%, hsla(179,0%,0%,1) 0px, transparent 50%),
-      radial-gradient(at 52% 58%, hsla(172,7%,1%,1) 0px, transparent 50%),
-      radial-gradient(at 39% 53%, hsla(181,0%,0%,1) 0px, transparent 50%),
-      radial-gradient(at 95% 47%, hsla(181,0%,0%,1) 0px, transparent 50%),
-      radial-gradient(at 4% 56%, hsla(188,0%,0%,1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(257,61%,61%,1) 0px, transparent 50%),
-      radial-gradient(at 75% 90%, hsla(172,49%,24%,1) 0px, transparent 50%);
+    color: #b7b7b7;
+    background-color: #000;
+    border-image: fill 0 linear-gradient(#282828,#000);
   }
   
   .header {
-    background-color: #333;
-    color: white;
+    font-family: 'dosis',sans-serif;
+    background-color:#ec9572;
+    color: black;
     text-align: left;
     padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .header img {
+    margin-left: 5%; 
+  } 
+
+  .header h1 {
+    margin: 0; /* Elimina el margen predeterminado del título */
+    font-size: 40px;
+  }
+ #title{
+    margin-left: 1%;
   }
 
+  #hook {
+    font-size: 30px;
+    margin-bottom: 0%;
+}
   .center-text {
     text-align: center;
     margin: 20px;
+
   }
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    margin-top: 0%;
+    margin-top: 5%;
+    
   }
   
   .product {
@@ -43,10 +54,15 @@ body {
     margin: 20px;
     flex: 0 0 auto; 
     transition: transform 0.4s ease; /* Añade transición para suavizar el efecto */
+    margin-top: 0%;
 }
+  .product p {
+    font-size: 20px;
+  }
 
 .product:hover {
   transform: scale(1.3); /* Hace el producto un poco más grande al pasar el ratón */
+  background-color: #3b3b3b;
   background: transparent;
   backdrop-filter: blur(10px);
 }
@@ -60,6 +76,11 @@ body {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  color: black;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #ec9572;
   
 }
 
@@ -73,18 +94,7 @@ body {
     height: auto;
     aspect-ratio: 16/9;
     object-fit: contain;
+
 }
 
   
- button {
-    background-color: black;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    ;
- }
-
-button:hover {
-    background-color: #45a049;
-}
