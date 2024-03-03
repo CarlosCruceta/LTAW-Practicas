@@ -67,11 +67,8 @@ body {
   backdrop-filter: blur(10px);
 }
 
-.product:hover button {
-  display: block;
-}
+
 .product button {
-  display: none;
   position: absolute;
   top: 100%;
   left: 50%;
