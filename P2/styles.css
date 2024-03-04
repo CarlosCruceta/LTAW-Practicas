@@ -1,0 +1,97 @@
+
+
+body {
+    font-family: 'dosis';
+    margin: 0;
+    padding: 0;
+    color: #b7b7b7;
+    background-color: #000;
+    border-image: fill 0 linear-gradient(#282828,#000);
+  }
+  
+  .header {
+    font-family: 'dosis',sans-serif;
+    background-color:#ec9572;
+    color: black;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .header img {
+    margin-left: 5%; 
+  } 
+
+  .header h1 {
+    margin: 0; /* Elimina el margen predeterminado del título */
+    font-size: 40px;
+  }
+ #title{
+    margin-left: 1%;
+  }
+
+  #hook {
+    font-size: 30px;
+    margin-bottom: 0%;
+}
+  .center-text {
+    text-align: center;
+    margin: 20px;
+
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0%;
+    margin-top: 5%;
+    
+  }
+  
+  .product {
+    position: relative;
+    text-align: center;
+    margin: 20px;
+    flex: 0 0 auto; 
+    transition: transform 0.4s ease; /* Añade transición para suavizar el efecto */
+    margin-top: 0%;
+}
+  .product p {
+    font-size: 20px;
+  }
+
+.product:hover {
+  transform: scale(1.3); /* Hace el producto un poco más grande al pasar el ratón */
+  background-color: #3b3b3b;
+  background: transparent;
+  backdrop-filter: blur(10px);
+}
+
+
+.product button {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: black;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #ec9572;
+  
+}
+
+.product:hover button {
+  display: block;
+}
+  
+  
+.product img {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+
+}
+
+  
