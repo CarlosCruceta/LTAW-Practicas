@@ -21,19 +21,29 @@
             <h2>Descripción del Producto</h2>
             <p>Este es el párrafo con la descripción del producto.</p>
         </div>
-        <div class="carousel" id="carousel">
-            <div class="image-container">
-                <img src="imagenes/Maschine1.png" alt="Producto 1" class="product-image" data-index="0">
-                <img src="imagenes/novation1.png" alt="Producto 2" class="product-image" data-index="1">
-                <img src="imagenes/Akai1.png" alt="Producto 3" class="product-image" data-index="2">
-                <div class="image-text" id="image-text"></div> <!-- Nuevo elemento de texto -->
-            </div>   
+        <div class="izquierda">
+            <div class="columna">
+                <div class="image-container">
+                    <img src="imagenes/pads.jpg" alt="Producto 1" class="product-image" data-index="0">
+                    <img src="imagenes/conexiones.jpg" alt="Producto 2" class="product-image" data-index="1">
+                    <img src="imagenes/bancos.jpg" alt="Producto 3" class="product-image" data-index="2">
+                    <div class="image-text" id="image-text"></div>
+                </div>
+            </div>
+            <div class="columna">
+                <div class="dot-container" id="dot-container">
+                    <span class="dot" onclick="changeImage(0)"></span>
+                    <span class="dot" onclick="changeImage(1)"></span>
+                    <span class="dot" onclick="changeImage(2)"></span>
+                </div>
+            </div>
+            <div class="columna">
+                <!-- Tercera columna libre -->
+            </div>
         </div>
-        <div class="dot-container" id="dot-container">
-            <span class="dot" onclick="changeImage(0)"></span>
-            <span class="dot" onclick="changeImage(1)"></span>
-            <span class="dot" onclick="changeImage(2)"></span>
-        </div>
+       
+
+        
     </div>
     <script src="akai.js"></script>
 </body>
