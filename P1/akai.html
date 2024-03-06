@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="akai.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+    <title>Touch & Groove</title>
+    <link rel="icon" href="imagenes/favicon.ico" type="image/x-icon" sizes="16x16 32x32">
+</head>
+<body>
+    <div class="header">
+        <img src="imagenes/Logo_finalR.png" alt="Logo" sizes="32x32">
+        <h1 id="title">TOUCH & GROOVE</h1>
+    </div>
+    <div class="container">
+        <div class="description">
+            <h2>Descripción del Producto</h2>
+            <p>Este es el párrafo con la descripción del producto.</p>
+        </div>
+        <div class="carousel" id="carousel">
+            <div class="image-container">
+                <img src="imagenes/Maschine1.png" alt="Producto 1" class="product-image" data-index="0">
+                <img src="imagenes/novation1.png" alt="Producto 2" class="product-image" data-index="1">
+                <img src="imagenes/Akai1.png" alt="Producto 3" class="product-image" data-index="2">
+                <div class="image-text" id="image-text"></div> <!-- Nuevo elemento de texto -->
+            </div>   
+        </div>
+        <div class="dot-container" id="dot-container">
+            <span class="dot" onclick="changeImage(0)"></span>
+            <span class="dot" onclick="changeImage(1)"></span>
+            <span class="dot" onclick="changeImage(2)"></span>
+        </div>
+    </div>
+    <script src="akai.js"></script>
+</body>
+</html>

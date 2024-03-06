@@ -1,0 +1,100 @@
+
+
+body {
+    font-family: 'dosis';
+    color: #b7b7b7;
+    background-color: #000;
+    border-image: fill 0 linear-gradient(#282828,#000);
+  }
+  
+  .header {
+    font-family: 'dosis',sans-serif;
+    background-color:#ec9572;
+    color: black;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .header img {
+    margin-left: 5%; 
+  } 
+
+  .header h1 {
+    margin: 0; /* Elimina el margen predeterminado del título */
+    font-size: 40px;
+  }
+ #title{
+    margin-left: 1%;
+  }
+
+
+.container {
+    display: flex;
+}
+
+.description {
+    flex: 1;
+    background-image: url("imagenes/fondo_akai2.jpg") ;
+    max-width: 50%;
+}
+
+.image-container {
+    
+    position: relative;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+.image-text {
+    position: absolute;
+    top: 50%; /* Posición vertical centrada */
+    left: 120%; /* Alineación a la derecha del contenedor de imágenes */
+    transform: translate(-10px, -50%); /* Ajusta la posición del texto */
+    display: none; /* Oculta el texto por defecto */
+}
+
+
+.product-image {
+    width: auto; 
+    max-width: 100%; 
+    height: auto; 
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container button {
+    margin: 5px;
+}
+
+.button-container button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+.dot-container {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección principal a vertical */
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dot {
+    height: 16px;
+    width: 16px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 8px 0; /* Ajusta el margen vertical */
+    cursor: pointer;
+}
+
+/* Tu código CSS posterior... */
+
+
+.dot.active {
+    background-color: #007bff;
+}
