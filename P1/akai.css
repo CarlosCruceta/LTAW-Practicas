@@ -36,23 +36,36 @@ body {
 
 .description {
     flex: 1;
-    background-image: url("imagenes/fondo_maschineR.png");
-    filter: brightness(0.4);
     max-width: 50%;
     height: 100vh;
     color: #b7b7b7;
+    justify-content: center;
+}
+
+#product-name{
+    padding-top: 6%;
+    padding-bottom: 2%;
+    padding-left: 10%;
+    font-size: 60px;
+    margin: 0%;
+}
+
+#description-image{
+    opacity: 0.8;
+    padding-left: 20%;
 }
 
 .izquierda {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    padding-top: 5%;
 }
 
 .image-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 20px;
 }
 
 .product-image {
@@ -66,20 +79,23 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 10px;
-    padding: 5%;
+    padding-bottom: 10%;
+    padding-top: 6%;
+    cursor: pointer;
 }
 
 .image-text {
     position: absolute;
     transform: translate(-10px, -50%);
     display: none;
+    font-size: 20px;
+    text-align: justify;
 }
 
 
 .dot {
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     background-color: #bbb;
     border-radius: 50%;
     margin: 0 8px;
