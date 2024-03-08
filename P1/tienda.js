@@ -17,10 +17,10 @@ const server = http.createServer((req, res) => {
         fs.readdir('.', (err, files) => {
             if (err) {
                 console.error(`Error al leer el directorio: ${err.message}`);
-                res.statusCode = 500;
-                res.statusMessage = "INTERNAL SERVER ERROR";
+                res.statusCode = 400;
+                res.statusMessage = "404 NOT FOUND";
                 res.setHeader('Content-Type', fileType);
-                return res.end('Error en la carga de la página');
+                return res.end('ERROR 404 NOT FOUND');
             }
             // Creamos el html con el listado de archivos
             const fileListHTML = `<html><body><h1>Lista de Archivos:</h1><ul>${files.map(file => `<li>${file}</li>`).join('')}</ul></body></html>`;
@@ -63,7 +63,7 @@ const server = http.createServer((req, res) => {
             res.statusCode = 404;
             res.statusMessage = "NOT FOUND";
             res.setHeader('Content-Type', fileType);
-            return res.end('Error en la carga de la página');
+            return res.end('ERROR 404 NOT FOUND');
         }
 
         res.statusCode = code;
