@@ -1,0 +1,33 @@
+body {
+    font-family: 'Dosis', sans-serif;
+    background-color: #f1eaea;
+    color:black;
+    text-align: center;
+    margin: 0;
+}
+
+h1 {
+    font-size: 80px;
+}
+
+p {
+    font-size: 30px;
+    color: #777;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    opacity: 0.9;
+   
+}
+
+a {
+    color: #ec9572; 
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline; /* Subrayar al pasar el ratón sobre el enlace */
+}
+
