@@ -18,11 +18,12 @@ body {
     color: black;
     padding: 10px;
     display: flex;
-    justify-content: space-between; /* Agregado para distribuir el espacio entre los elementos */
+    justify-content: space-between; 
 }
 
 .header img {
     margin-left: 5%;
+    
 }
 
 .header h1 {
