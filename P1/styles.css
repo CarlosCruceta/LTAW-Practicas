@@ -1,97 +1,97 @@
-
-
 body {
-    font-family: 'dosis';
-    margin: 0;
-    padding: 0;
-    color: #b7b7b7;
-    background-color: #000;
-    border-image: fill 0 linear-gradient(#282828,#000);
-  }
-  
-  .header {
-    font-family: 'dosis',sans-serif;
-    background-color:#ec9572;
-    color: black;
-    text-align: left;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-  }
-  .header img {
-    margin-left: 5%; 
-  } 
-
-  .header h1 {
-    margin: 0; /* Elimina el margen predeterminado del título */
-    font-size: 40px;
-  }
- #title{
-    margin-left: 1%;
-  }
-
-  #hook {
-    font-size: 30px;
-    margin-bottom: 0%;
+  font-family: 'dosis';
+  margin: 0;
+  padding: 0;
+  color: #b7b7b7;
+  background-color: #161515;
+  opacity: 0.9;
 }
-  .center-text {
-    text-align: center;
-    margin: 20px;
 
-  }
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0%;
-    margin-top: 5%;
-    
-  }
-  
-  .product {
-    position: relative;
-    text-align: center;
-    margin: 20px;
-    flex: 0 0 auto; 
-    transition: transform 0.4s ease; /* Añade transición para suavizar el efecto */
-    margin-top: 0%;
+.header {
+  font-family: 'dosis', sans-serif;
+  background-color: #ec9572;
+  color: black;
+  text-align: left;
+  padding: 10px;
+  display: flex;
+  align-items: center;
 }
-  .product p {
-    font-size: 20px;
-  }
+
+.header img {
+  margin-left: 5%;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 40px;
+}
+
+#title {
+  margin-left: 1%;
+}
+
+#hook {
+  font-size: 30px;
+  margin-bottom: 0%;
+}
+
+.center-text {
+  text-align: center;
+  margin: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.product {
+  position: relative;
+  text-align: center;
+  margin: 20px;
+  flex: 0 0 auto;
+  transition: transform 0.4s ease;
+  margin-top: 0%;
+  overflow: hidden; /* Añade un overflow para ocultar el botón al inicio */
+}
+
+.product p {
+  font-size: 20px;
+}
 
 .product:hover {
-  transform: scale(1.3); /* Hace el producto un poco más grande al pasar el ratón */
-  background-color: #3b3b3b;
+  transform: scale(1.3);
   background: transparent;
-  backdrop-filter: blur(10px);
 }
-
 
 .product button {
   position: absolute;
-  top: 100%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  color: black;
+  transform: translate(-50%, -50%);
+  color: #161515;
   padding: 10px;
-  border: none;
+  border-radius: 12px;
+  border-color: #161515;
   cursor: pointer;
   background-color: #ec9572;
-  
+  font-size: 20px;
+  opacity: 0; /* Inicialmente oculta el botón */
+  transition: opacity 0.4s ease; /* Añade transición para suavizar la aparición del botón */
 }
 
 .product:hover button {
-  display: block;
+  opacity: 1; /* Muestra el botón al pasar el ratón por encima */
 }
-  
-  
+
 .product img {
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 16/9;
-    object-fit: contain;
-
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.product:hover img{
+  opacity: 0.3;
 }
 
-  
