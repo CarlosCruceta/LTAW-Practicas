@@ -27,31 +27,24 @@ body {
   font-size: 40px;
 }
 .login{
-  font-family: 'Dosis', sans-serif;
-  background-color:#161515;
-  color: aliceblue;
-  padding-left: 1%;
-  padding-right: 1%;
-  font-size: 30px;
+ 
   border: none;
-  cursor: pointer;
-  float: right;
-  border-radius: 5px;
   margin-left: 50%;
+  margin-right: 10%;
 }
 
 .login-button {
   font-family: 'Dosis', sans-serif;
     background-color:#161515;
     color: aliceblue;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     font-size: 30px;
     border: none;
     cursor: pointer;
-    float: right;
     border-radius: 5px;
-    margin-left: 50%;
 }
 
 .login-button:hover {
