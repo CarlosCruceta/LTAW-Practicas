@@ -1,22 +1,27 @@
-const fs = require('fs');
-
 function fetchProducts() {
-    const jsonData = fs.readFileSync('productos.json', 'utf8');
-    const data = JSON.parse(jsonData);
-    const productContainer = document.getElementById('product-container');
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'tienda.json', true);
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            var data = JSON.parse(xhr.responseText);
+            // Obtén la lista de productos del archivo JSON
+            var productos = data.productos;
 
-    data.productos.forEach(product => {
-        const productHTML = `
-            <div class="product">
-                <h2>${product.nombre}</h2>
-                <p>${product.descripcion}</p>
-                <p>Precio: ${product.precio} €</p>
-                <p>Cantidad en stock: ${product.cantidad_en_stock}</p>
-            </div>
-        `;
-        productContainer.innerHTML += productHTML;
-    });
-    
+            // Itera sobre cada producto y actualiza los valores en la página HTML
+            productos.forEach((producto, index) => {
+                var productElement = document.getElementsByClassName("product")[index];
+                productElement.querySelector("h2").innerText = producto.nombre;
+                productElement.querySelector("p").innerText = producto.precio + " €";
+            });
+        } else {
+            console.error('Error al cargar el archivo tienda.json');
+        }
+    };
+    xhr.onerror = function () {
+        console.error('Error al cargar el archivo tienda.json');
+    };
+    xhr.send();
 }
 
+// Llama a fetchProducts cuando la página esté completamente cargada
 window.onload = fetchProducts;
