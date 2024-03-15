@@ -1,0 +1,49 @@
+{
+    "usuarios": [
+      {
+        "nombre_usuario": "root",
+        "nombre_real": "Administrador",
+        "correo": "admin@touchgroove.com"
+      },
+      {
+        "nombre_usuario": "KaseO",
+        "nombre_real": "Javier Ibarra",
+        "correo": "kase@doblev.com"
+      }
+    ],
+    "productos": [
+      {
+        "nombre": "NI Maschine MK3",
+        "descripcion": "Native Instruments Maschine MK3 redefine la experiencia de producción musical, ofreciendo innovaciones que elevan tu creatividad y eficiencia. Descubre las características clave que hacen de esta caja de ritmos una herramienta esencial para cualquier productor.",
+        "precio": 299,
+        "cantidad_en_stock": 50
+      },
+      {
+        "nombre": "Novation Circuit Tracks",
+        "descripcion": "Si lo que buscas es rapidez en un modelo intuitivo y directo <b>Novation Circuit Tracks es tu producto. No hay desplazamientos ni menús complejos, lo único que aumenta es la creatividad. Controla tus baterías y efectos en tiempo real desde cualquier parte gracias a su batería recargable incorporada.",
+        "precio": 349,
+        "cantidad_en_stock": 30
+      },
+      {
+        "nombre": "Akai MPC X SE",
+        "descripcion": "Akai MPC X SE con su icónico flujo de trabajo y las funciones optimizadas en el tiempo,continúa siendo la plataforma de producción de muestreo y secuenciación líder para cada generación. Con su vía de color retro, MPC X SE mantiene la leyenda de laMPC y la tecnología de música de vanguardia",
+        "precio": 2199,
+        "cantidad_en_stock": 20
+      }
+    ],
+    "pedidos": [
+      {
+        "nombre_usuario": "KaseO",
+        "direccion_envio": "Calle Principal 123",
+        "numero_tarjeta": "1234-5678-9012-3456",
+        "productos_comprados": ["NI Maschine MK3", "Akai MPC X SE"]
+      },
+      {
+        "nombre_usuario": "root",
+        "direccion_envio": "Avenida Central 456",
+        "numero_tarjeta": "9876-5432-1098-7654",
+        "productos_comprados": ["Novation Circuit Tracks"]
+      }
+    ]
+  }
+  

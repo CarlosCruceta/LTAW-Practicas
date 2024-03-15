@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="maschine.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+    <title>Touch & Groove</title>
+    <link rel="icon" href="imagenes/favicon.ico" type="image/x-icon" sizes="16x16 32x32">
+</head>
+<body>
+    <div class="header">
+        <img src="imagenes/Logo_finalR.png" alt="Logo" sizes="32x32">
+        <h1 id="title">TOUCH & GROOVE</h1>
+        <div class="dropdown">
+            <button class="dropbtn"><i class="material-icons" style="font-size:50px;">menu</i></button>
+            <div class="dropdown-content">
+                <a href="index.html">HOME</a>
+                <a href="novation.html">Novation Circuits Tracks</a>
+                <a href="akai.html">Akai MPC X SE</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="description">
+            <h1 id="product-name">MASCHINE MK3</h1>
+            <img id ="description-image" src="imagenes/maschine_principal.png">
+            <div class="description-text">
+                <p><b>Native Instruments Maschine MK3</b> redefine la experiencia de producción
+                    musical, ofreciendo innovaciones que elevan tu creatividad y eficiencia. 
+                    Descubre las características clave que hacen de esta caja de ritmos una 
+                    herramienta esencial para cualquier productor.</p>
+            </div>
+        </div>
+        <div class="derecha">
+            <div class="columna">
+                <div class="image-text" id="image-text"></div>
+                <div class="image-container">
+                    <img src="imagenes/bancos.jpg" alt="Producto 3" class="product-image" data-index="0">
+                    <img src="imagenes/pantalla.jpg" alt="Producto 4" class="product-image" data-index="1">
+                    <img src="imagenes/conexiones.jpg" alt="Producto 2" class="product-image" data-index="2">
+                    <img src="imagenes/pads.jpg" alt="Producto 1" class="product-image" data-index="3">
+                    
+                </div>
+            </div>
+            <div class="columna">
+                <div class="dot-container" id="dot-container">
+                    <span class="dot" onclick="changeImage(0)"></span>
+                    <span class="dot" onclick="changeImage(1)"></span>
+                    <span class="dot" onclick="changeImage(2)"></span>
+                    <span class="dot" onclick="changeImage(3)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="maschine.js"></script>
+</body>
+</html>
