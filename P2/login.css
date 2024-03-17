@@ -3,7 +3,8 @@ body {
     margin: 0;
     padding: 0;
     color: #b7b7b7;
-    background-color: #161515;
+    background-color: #212121;
+    
 }
   
 .header {
@@ -36,51 +37,54 @@ body {
 
 .login-box {
     margin-top: 10%;
-    background-color: #fff;
     padding: 20px;
     border-radius: 25px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border: 2px solid #ccc; /* Añadimos un borde sólido de 2px */
-    width: 300px; /* Ajustar según sea necesario */
+    background-color: #171717;
+    width: 300px; 
+    height: 350px;
+    color: #fff;
 }
 
 .login-box h2 {
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     text-align: center;
+    font-size: 30px;
 }
 
 .form-group {
     margin-left: 20%;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
 .form-group label {
     display: block;
-    font-weight: bold;
-    font-size: 20PX;
+    font-size: 25px;
+    margin-bottom: 3%;
 }
 
 .form-group input {
-    border: 1px solid #ccc;
     border-radius: 25px;
-    transition: border-color 0.3s ease;
-    padding: 3%;
-    margin-top: 1%;
-    
+    padding: 5%;
+    margin-top: 3%;
+    border: none;
+    background-color: #212121;
+    color: #fff;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #252525;
     border: none;
     border-radius: 5px;
     color: #fff;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #ec9572;
+    color: #171717;
 }
