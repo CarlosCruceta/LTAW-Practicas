@@ -37,6 +37,23 @@ body {
     margin-left: 1%;
 }
 
+#cart-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #252525;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cart-button:hover {
+    background-color: #ec9572;
+    color: #171717;
+}
+
 .description {
     flex: 1;
     max-width: 50%;
