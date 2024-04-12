@@ -9,9 +9,31 @@ const server = http.createServer((req, res) => {
     let code = 200;
     let fileType = 'text/html';
 
+    if (req.method === 'POST' && url.pathname === '/procesar') {
+        let body = '';
+        req.on('data', (chunk) => {
+            body += chunk.toString(); // convertir Buffer a string
+        });
+
+        req.on('end', () => {
+            // Parsear los datos del cuerpo de la solicitud
+            const parsedData = new URLSearchParams(body);
+            const username = parsedData.get('username');
+            
+            // Aquí puedes hacer lo que quieras con los datos (por ejemplo, guardarlos en una base de datos, etc.)
+            console.log(username);
+    
+
+            // Redirigir o enviar una respuesta apropiada
+            res.writeHead(302, { 'Location': '/' }); // Redirigir al inicio después de procesar los datos
+            return res.end();
+        });
+
+        return; // Importante: para evitar que el código siga ejecutándose después del manejo de la solicitud POST
+    }
+
     if (url.pathname === '/') {
         file = 'index.html';
-        
     } else if (url.pathname === '/ls') {
         // Manejo del recurso /ls para obtener el listado de archivos
         fs.readdir('.', (err, files) => {
@@ -32,11 +54,9 @@ const server = http.createServer((req, res) => {
         return;
     } else {
         file = url.pathname.substr(1);
-        
     }
-  
+
     let fileFormat = file.split('.')[1];
-    
 
     switch (fileFormat) {
         case 'css':
