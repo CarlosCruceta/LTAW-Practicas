@@ -3,6 +3,9 @@ const http = require('http');
 
 const port = 9090;
 
+// Leer el archivo JSON que contiene la información de los usuarios
+const usuariosJSON = JSON.parse(fs.readFileSync('tienda.json'));
+
 const server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://' + req.headers['host']);
     let file = '';
@@ -20,13 +23,31 @@ const server = http.createServer((req, res) => {
             const parsedData = new URLSearchParams(body);
             const username = parsedData.get('username');
             
-            // Aquí puedes hacer lo que quieras con los datos (por ejemplo, guardarlos en una base de datos, etc.)
-            console.log(username);
-    
+            // Verificar si el usuario está en el archivo JSON
+            const usuarioEncontrado = usuariosJSON.usuarios.find(usuario => usuario.nombre_usuario === username);
 
-            // Redirigir o enviar una respuesta apropiada
-            res.writeHead(302, { 'Location': '/' }); // Redirigir al inicio después de procesar los datos
-            return res.end();
+            if (usuarioEncontrado) {
+                // Establecer una cookie para el usuario
+                res.setHeader('Set-Cookie', `usuario=${username}; Path=/`);
+                
+                // Redirigir al inicio con un mensaje de bienvenida
+                res.writeHead(302, { 'Location': '/' });
+                return res.end();
+            } else {
+                fs.readFile('error_login.html', (err, data) => {
+                    if (err) {
+                        res.statusCode = 404;
+                        res.statusMessage = "NOT FOUND";
+                        res.setHeader('Content-Type', 'text/html');
+                        return res.end('ERROR 404 NOT FOUND');
+                    }
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'text/html');
+                    res.write(data);
+                    return res.end();
+                });
+
+            }
         });
 
         return; // Importante: para evitar que el código siga ejecutándose después del manejo de la solicitud POST
