@@ -12,6 +12,9 @@ const server = http.createServer((req, res) => {
     let code = 200;
     let fileType = 'text/html';
 
+    const cookieUsuario = req.headers.cookie ? req.headers.cookie.split(';').find(cookie => cookie.trim().startsWith('usuario=')) : null;
+    const usuarioEncontrado = cookieUsuario ? cookieUsuario.split('=')[1] : null;
+
     if (req.method === 'POST' && url.pathname === '/procesar') {
         let body = '';
         req.on('data', (chunk) => {
@@ -54,7 +57,13 @@ const server = http.createServer((req, res) => {
     }
 
     if (url.pathname === '/') {
-        file = 'index.html';
+
+        if (usuarioEncontrado) {
+            // Si la cookie de usuario está presente, mostrar la página index_user.html
+            file = 'index_user.html';
+    }   else {
+            file = 'index.html';
+    }
     } else if (url.pathname === '/ls') {
         // Manejo del recurso /ls para obtener el listado de archivos
         fs.readdir('.', (err, files) => {
