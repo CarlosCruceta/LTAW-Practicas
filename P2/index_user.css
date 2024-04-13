@@ -78,7 +78,7 @@ body {
     background: transparent;
   }
   
-  .product button {
+  .details {
     font-family: 'dosis', sans-serif;
     font-weight: bold;
     position: absolute;
@@ -97,7 +97,7 @@ body {
     cursor: pointer;
   }
   
-  .product button::before {
+  .details::before {
     content: "";
     position: absolute;
     left: 0;
@@ -108,16 +108,16 @@ body {
     transition: 0.5s ease;
   }
   
-  .product button:hover {
+  .details:hover {
     color: #161515;
     transition-delay: 0.5s;
   }
   
-  .product button:hover::before {
+  .details button:hover::before {
     width: 100%;
   }
   
-  .product button::after {
+  .details::after {
     content: "";
     position: absolute;
     left: 0;
@@ -129,7 +129,7 @@ body {
     z-index: -1;
   }
   
-  .product button:hover::after {
+  .details:hover::after {
     height: 100%;
     transition-delay: 0.3s;
     color: aliceblue;
@@ -147,6 +147,21 @@ body {
     opacity: 0.2;
   }
   
-  
+  .add-to-cart{
+    margin-top: 4%;
+    font-family: 'dosis', sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #ec9572;
+    border: none;
+    color: #161515;
+    transform: scale(1); /* Añadimos esta regla para mantener el tamaño constante */
+    transition: none; /* Eliminamos la transición para evitar el cambio de tamaño */
+}
+
+
   
   
