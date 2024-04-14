@@ -1,10 +1,11 @@
-const fs = require('fs');
 const http = require('http');
+const fs = require('fs');
+const querystring = require('querystring');
 
 const port = 9090;
 
 // Leer el archivo JSON que contiene la información de los usuarios
-const usuariosJSON = JSON.parse(fs.readFileSync('tienda.json'));
+const tiendaData = JSON.parse(fs.readFileSync('tienda.json'));
 
 const server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://' + req.headers['host']);
@@ -15,55 +16,28 @@ const server = http.createServer((req, res) => {
     const cookieUsuario = req.headers.cookie ? req.headers.cookie.split(';').find(cookie => cookie.trim().startsWith('usuario=')) : null;
     const usuarioEncontrado = cookieUsuario ? cookieUsuario.split('=')[1] : null;
 
-    if (req.method === 'POST' && url.pathname === '/procesar') {
+    if (req.method === 'POST' && url.pathname === '/realizar-pedido') {
         let body = '';
         req.on('data', (chunk) => {
             body += chunk.toString(); // convertir Buffer a string
         });
 
         req.on('end', () => {
-            // Parsear los datos del cuerpo de la solicitud
-            const parsedData = new URLSearchParams(body);
-            const username = parsedData.get('username');
-            
-            // Verificar si el usuario está en el archivo JSON
-            const usuarioEncontrado = usuariosJSON.usuarios.find(usuario => usuario.nombre_usuario === username);
-
-            if (usuarioEncontrado) {
-                // Establecer una cookie para el usuario
-                res.setHeader('Set-Cookie', `usuario=${username}; Path=/`);
-                
-                // Redirigir al inicio con un mensaje de bienvenida
-                res.writeHead(302, { 'Location': '/' });
-                return res.end();
-            } else {
-                fs.readFile('error_login.html', (err, data) => {
-                    if (err) {
-                        res.statusCode = 404;
-                        res.statusMessage = "NOT FOUND";
-                        res.setHeader('Content-Type', 'text/html');
-                        return res.end('ERROR 404 NOT FOUND');
-                    }
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'text/html');
-                    res.write(data);
-                    return res.end();
-                });
-
-            }
+            const formData = querystring.parse(body);
+            guardarPedido(formData);
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            return res.end('Pedido recibido y procesado correctamente.');
         });
 
         return; // Importante: para evitar que el código siga ejecutándose después del manejo de la solicitud POST
     }
-
     if (url.pathname === '/') {
-
         if (usuarioEncontrado) {
             // Si la cookie de usuario está presente, mostrar la página index_user.html
             file = 'index_user.html';
-    }   else {
+        } else {
             file = 'index.html';
-    }
+        }
     } else if (url.pathname === '/ls') {
         // Manejo del recurso /ls para obtener el listado de archivos
         fs.readdir('.', (err, files) => {
@@ -125,3 +99,13 @@ const server = http.createServer((req, res) => {
 
 server.listen(port);
 console.log("Escuchando en puerto: " + port);
+
+function guardarPedido(formData) {
+    const nuevoPedido = {};
+    for (const [key, value] of Object.entries(formData)) {
+        nuevoPedido[key] = value;
+    }
+    tiendaData.pedidos.push(nuevoPedido);
+    fs.writeFileSync('tienda.json', JSON.stringify(tiendaData, null, 2), 'utf8');
+    console.log('Pedido guardado exitosamente en tienda.json');
+}
