@@ -17,9 +17,11 @@
         <img src="imagenes/Logo_finalR.png" alt="Logo" sizes="32x32">
         <h1 id="title">TOUCH & GROOVE</h1>
     </div>
-    <div class="center-text">
-        <h1>LLEVA TU MÚSICA AL SIGUIENTE NIVEL</h1>
-        <p id="hook">Escucha tus ideas como siempre las imaginaste, directamente, de tu cabeza al altavoz.</p>
+    <div class="center-items">
+        <div class="center-text">
+            <h1>LLEVA TU MÚSICA AL SIGUIENTE NIVEL</h1>
+            <p id="hook">Escucha tus ideas como siempre las imaginaste, directamente, de tu cabeza al altavoz.</p>
+        </div>
     </div>
     <div class="container">
         <div class="product">
@@ -50,6 +52,14 @@
             <h2></h2>
             <p></p>
             <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+
+        <div class="dropdown">
+            <i class="material-icons" style="font-size:50px;">shopping_cart</i>
+            <div class="dropdown-content" id="cart-content">
+                <ul id="cart-items" class="cart-items"></ul>
+                <p id="total-price"></p>
+            </div>
         </div>
     </div>
     <script src="index_user.js"></script>

@@ -162,6 +162,19 @@ body {
     transition: none; /* Eliminamos la transición para evitar el cambio de tamaño */
 }
 
+.dropdown{
+    margin-left: 8%;
+    margin-top: 0;
+}
 
-  
+/* Oculta el botón de finalizar compra al principio */
+.checkout-button {
+    display: none;
+}
+
+/* Muestra el botón de finalizar compra cuando hay productos en el carrito */
+#cart-content.show .checkout-button {
+    display: block;
+}
+
   
