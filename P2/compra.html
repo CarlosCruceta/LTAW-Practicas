@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+
+    <title>Finalizar compra</title>
+    <link rel="icon" href="imagenes/favicon.ico" type="image/x-icon" sizes="300x300">
+</head>
+<body>
+    <div class="header">
+        <img src="imagenes/Logo_finalR.png" alt="Logo" sizes="32x32">
+        <h1 id="title">TOUCH & GROOVE</h1>
+    </div>
+    <div class="container">
+        <div class="center-content">
+            <div class="login-box">
+                <h1>Confirmación de Pedido</h1>
+                <div id="cart-summary">
+                    <h2>Resumen del Carrito</h2>
+                    <ul id="cart-items"></ul>
+                    <p id="total-price"></p>
+                </div>
+                <div id="order-details">
+                     <h2>Detalles del Pedido</h2>
+                     <form id="order-form">
+                        <label for="shipping-address">Dirección de Envío:</label>
+                        <input type="text" id="shipping-address" name="shipping-address" required><br><br>
+                        <label for="credit-card">Número de Tarjeta:</label>
+                        <input type="text" id="credit-card" name="credit-card" required><br><br>
+                        <button type="submit">Confirmar Pedido</button>
+                    </form>
+                </div>
+                <div id="order-confirmation" style="display: none;">
+                    <h2>¡Pedido Confirmado!</h2>
+                    <p>Tu pedido ha sido procesado exitosamente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="compra.js"></script>
+</body>
+</html>
