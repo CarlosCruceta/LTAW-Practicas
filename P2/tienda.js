@@ -13,10 +13,7 @@ const server = http.createServer((req, res) => {
     let code = 200;
     let fileType = 'text/html';
 
-    const cookieUsuario = req.headers.cookie ? req.headers.cookie.split(';').find(cookie => cookie.trim().startsWith('usuario=')) : null;
-    const usuarioEncontrado = cookieUsuario ? cookieUsuario.split('=')[1] : null;
-
-    if (req.method === 'POST' && url.pathname === '/realizar-pedido') {
+    if (req.method === 'POST' && url.pathname === '/procesar') {
         let body = '';
         req.on('data', (chunk) => {
             body += chunk.toString(); // convertir Buffer a string
@@ -24,13 +21,33 @@ const server = http.createServer((req, res) => {
 
         req.on('end', () => {
             const formData = querystring.parse(body);
-            guardarPedido(formData);
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            return res.end('Pedido recibido y procesado correctamente.');
+            const username = formData.username;
+
+            // Comprobar si el usuario está en el archivo JSON
+            const usuarioEncontrado = tiendaData.usuarios.find(user => user.nombre_usuario === username);
+
+            if (usuarioEncontrado) {
+                // Establecer la cookie de usuario
+                res.setHeader('Set-Cookie', `usuario=${username}; Path=/`);
+
+                // Redirigir al usuario a una página de inicio de sesión exitosa
+                res.writeHead(302, { 'Location': '/index_user.html' });
+                return res.end();
+            } else {
+                // Redirigir al usuario a una página de inicio de sesión fallida
+                res.writeHead(302, { 'Location': '/error_login.html' });
+                return res.end();
+            }
         });
 
         return; // Importante: para evitar que el código siga ejecutándose después del manejo de la solicitud POST
     }
+
+
+    const cookieUsuario = req.headers.cookie ? req.headers.cookie.split(';').find(cookie => cookie.trim().startsWith('usuario=')) : null;
+    const usuarioEncontrado = cookieUsuario ? cookieUsuario.split('=')[1] : null;
+
+    
     if (url.pathname === '/') {
         if (usuarioEncontrado) {
             // Si la cookie de usuario está presente, mostrar la página index_user.html
@@ -99,13 +116,3 @@ const server = http.createServer((req, res) => {
 
 server.listen(port);
 console.log("Escuchando en puerto: " + port);
-
-function guardarPedido(formData) {
-    const nuevoPedido = {};
-    for (const [key, value] of Object.entries(formData)) {
-        nuevoPedido[key] = value;
-    }
-    tiendaData.pedidos.push(nuevoPedido);
-    fs.writeFileSync('tienda.json', JSON.stringify(tiendaData, null, 2), 'utf8');
-    console.log('Pedido guardado exitosamente en tienda.json');
-}
