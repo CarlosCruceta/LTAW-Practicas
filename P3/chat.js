@@ -4,7 +4,7 @@ const http = require('http');
 const express = require('express');
 const colors = require('colors');
 
-const PUERTO = 8080;
+const PUERTO = 9090;
 
 //-- Crear una nueva aplciacion web
 const app = express();
@@ -18,7 +18,7 @@ const io = socket(server);
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
-  res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/Ej-09.html">Test</a></p>');
+  res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/chat.html">Acceder al chat</a></p>');
 });
 
 //-- Esto es necesario para que el servidor le envíe al cliente la
@@ -31,7 +31,10 @@ app.use(express.static('public'));
 //------------------- GESTION SOCKETS IO
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
-  
+  socket.send("")
+  const socketId = socket.id;
+  io.to(socketId).emit('message', 'Bienvenido');
+  io.send("Nuevo miembro se unió al chat");
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
   //-- Evento de desconexión
