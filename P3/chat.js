@@ -9,7 +9,7 @@ const PUERTO = 9090;
 //-- Crear una nueva aplciacion web
 const app = express();
 
-//-- Crear un servidor, asosiaco a la App de express
+//-- Crear un servidor, asociado a la App de express
 const server = http.Server(app);
 
 //-- Crear el servidor de websockets, asociado al servidor http
@@ -47,10 +47,36 @@ io.on('connect', (socket) => {
   socket.on("message", (msg)=> {
     console.log("Mensaje Recibido!: " + msg.blue);
 
-    //-- Reenviarlo a todos los clientes conectados
-    io.send(msg);
+    //-- Verificar si el mensaje es un comando especial
+    if (msg.startsWith('/')) {
+      handleCommand(msg, socket);
+    } else {
+      //-- Reenviar el mensaje a todos los clientes conectados excepto al que lo envió
+      io.send(msg);
+    }
   });
 
+  function handleCommand(msg, socket) {
+    const command = msg.split(' ')[0]; // Obtener el comando sin los argumentos
+    switch (command) {
+      case '/help':
+        socket.send('Comandos soportados:\n/help - Mostrar lista de comandos\n/list - Mostrar el número de usuarios conectados\n/hello - Saludar\n/date - Mostrar la fecha');
+        break;
+      case '/list':
+        socket.send(`Número de usuarios conectados: ${io.engine.clientsCount}`);
+        break;
+      case '/hello':
+        socket.send('¡Hola!');
+        break;
+      case '/date':
+        const currentDate = new Date().toDateString();
+        socket.send(`Fecha actual : ${currentDate}`);
+        break;
+      default:
+        socket.send('Comando no reconocido. Escribe /help para ver la lista de comandos disponibles.');
+        break;
+    }
+  }
 });
 
 //-- Lanzar el servidor HTTP
