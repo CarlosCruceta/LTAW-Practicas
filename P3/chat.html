@@ -15,8 +15,16 @@
 
 <body>
   <h2>Ejemplo 9: Mini-chat</h2>
-  <input type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
-  <h3>Mensajes recibidos</h3>
-  <p id="display"></p>
+  <form id="name_form" onsubmit="joinChat(event)">
+    <input type="text" placeholder="Introduce tu nombre..." autocomplete="off" id="name_entry">
+    <button type="submit">Unirse al chat</button>
+  </form>
+  
+  <div id="chat_container" style="display: none;">
+    <input type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
+    <button onclick="sendMessage()">Enviar</button>
+    <h3>Mensajes recibidos</h3>
+    <p id="display"></p>
+  </div>
 </body>
 </html>

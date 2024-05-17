@@ -40,6 +40,7 @@ io.on('connect', (socket) => {
   //-- Evento de desconexión
   socket.on('disconnect', function(){
     console.log('** CONEXIÓN TERMINADA **'.yellow);
+    io.send("Miembro se salió del chat");
   });  
 
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
