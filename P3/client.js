@@ -2,7 +2,9 @@ const display = document.getElementById("display");
 const msg_entry = document.getElementById("msg_entry");
 const chatContainer = document.getElementById("chat_container");
 
+
 const socket = io();
+const msgSound = new Audio('sonido_notificacion.mp3');
 let joined = false; // Bandera para controlar si el usuario se unió al chat
 
 function joinChat(event) {
@@ -20,6 +22,7 @@ function joinChat(event) {
 
 socket.on("message", (msg)=>{
   display.innerHTML += '<p style="color:blue">' + msg + '</p>';
+  msgSound.play(); // Reproducir el sonido del mensaje
 });
 
 function sendMessage() {
