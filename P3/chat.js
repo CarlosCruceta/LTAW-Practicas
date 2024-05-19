@@ -6,6 +6,7 @@ const express = require('express');
 const colors = require('colors');
 
 const PUERTO = 9090;
+const SERVER = 'Server';
 
 //-- Crear una nueva aplicación web
 const app = express();
@@ -23,7 +24,6 @@ app.get('/', (req, res) => {
   // Utiliza res.sendFile para enviar el archivo login.html
   res.sendFile(path.join(__dirname, 'login.html'));
 });
-
 
 // Servir archivos estáticos (incluyendo Socket.IO client)
 app.use('/', express.static(__dirname));
@@ -44,14 +44,14 @@ io.on('connect', (socket) => {
 
     // Emitir mensaje de bienvenida al usuario conectado
     socket.emit('message', {
-      username: 'Servidor',
-      message: 'Bienvenido al chat!'
+      username: SERVER,
+      message: `Bienvenido al chat, ${username}!`
     });
 
     // Emitir mensaje a todos los clientes que un nuevo miembro se unió al chat
     io.emit('message', {
-      username: 'Servidor',
-      message: `Nuevo miembro '${username}' se unió al chat`
+      username: SERVER,
+      message: `${username} se unió al chat`
     });
   });
 
@@ -59,8 +59,8 @@ io.on('connect', (socket) => {
   socket.on('disconnect', () => {
     if (socket.username) {
       io.emit('message', {
-        username: 'Servidor',
-        message: `Miembro '${socket.username}' se desconectó`
+        username: SERVER,
+        message: `${username} se desconectó`
       });
       console.log(`** CONEXIÓN TERMINADA: Usuario '${socket.username}' **`.yellow);
     }
@@ -88,32 +88,32 @@ io.on('connect', (socket) => {
     switch (command) {
       case '/help':
         socket.emit('message', {
-          username: 'Servidor',
+          username: SERVER,
           message: 'Comandos soportados:\n/help - Mostrar lista de comandos\n/list - Mostrar el número de usuarios conectados\n/hello - Saludar\n/date - Mostrar la fecha'
         });
         break;
       case '/list':
         socket.emit('message', {
-          username: 'Servidor',
+          username: SERVER,
           message: `Número de usuarios conectados: ${io.engine.clientsCount}`
         });
         break;
       case '/hello':
         socket.emit('message', {
-          username: 'Servidor',
+          username: SERVER,
           message: '¡Hola!'
         });
         break;
       case '/date':
         const currentDate = new Date().toDateString();
         socket.emit('message', {
-          username: 'Servidor',
+          username: SERVER,
           message: `Fecha actual: ${currentDate}`
         });
         break;
       default:
         socket.emit('message', {
-          username: 'Servidor',
+          username: SERVER,
           message: 'Comando no reconocido. Escribe /help para ver la lista de comandos disponibles.'
         });
         break;
