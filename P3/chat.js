@@ -1,4 +1,3 @@
-//-- Cargar las dependencias
 const socket = require('socket.io');
 const http = require('http');
 const path = require('path');
@@ -8,73 +7,63 @@ const colors = require('colors');
 const PUERTO = 9090;
 const SERVER = 'Server';
 
-//-- Crear una nueva aplicación web
 const app = express();
-
-//-- Crear un servidor HTTP asociado a la App de express
 const server = http.createServer(app);
-
-//-- Crear el servidor de websockets, asociado al servidor HTTP
 const io = socket(server);
 
-// Puntos de entrada de la aplicación web
+// Conjunto para almacenar los nombres de usuario conectados
+const usuariosConectados = new Set();
 
-// Definir el punto de entrada principal de la aplicación web
+// Puntos de entrada de la aplicación web
 app.get('/', (req, res) => {
-  // Utiliza res.sendFile para enviar el archivo login.html
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// Servir archivos estáticos (incluyendo Socket.IO client)
 app.use('/', express.static(__dirname));
-
-// Directorio público contiene archivos estáticos
 app.use(express.static('public'));
 
 //------------------- GESTION SOCKETS IO
 
-// Evento: Nueva conexión recibida
 io.on('connect', (socket) => {
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
-  // Manejar evento de ingreso de nombre de usuario
   socket.on('username', (username) => {
     console.log(`Usuario '${username}' conectado`);
-    socket.username = username; // Asignar nombre de usuario al socket
+    socket.username = username;
+    usuariosConectados.add(username); // Agregar usuario al conjunto de usuarios conectados
 
-    // Emitir mensaje de bienvenida al usuario conectado
+    io.emit('usuarios', Array.from(usuariosConectados)); // Enviar lista actualizada de usuarios a todos los clientes
+
     socket.emit('message', {
       username: SERVER,
       message: `Bienvenido al chat, ${username}!`
     });
 
-    // Emitir mensaje a todos los clientes que un nuevo miembro se unió al chat
     io.emit('message', {
       username: SERVER,
       message: `${username} se unió al chat`
     });
   });
 
-  // Manejar evento de desconexión
   socket.on('disconnect', () => {
-    if (socket.username) {
+    if (socket.username && usuariosConectados.has(socket.username)) {
+      usuariosConectados.delete(socket.username); // Eliminar usuario del conjunto de usuarios conectados
+      io.emit('usuarios', Array.from(usuariosConectados)); // Enviar lista actualizada de usuarios a todos los clientes
+
       io.emit('message', {
         username: SERVER,
-        message: `${username} se desconectó`
+        message: `${socket.username} se desconectó`
       });
       console.log(`** CONEXIÓN TERMINADA: Usuario '${socket.username}' **`.yellow);
     }
   });
 
-  // Manejar mensaje recibido
   socket.on('message', (msg) => {
     console.log(`Mensaje recibido de '${socket.username}': ${msg}`.blue);
 
-    // Verificar si el mensaje es un comando especial
     if (msg.startsWith('/')) {
       handleCommand(msg, socket);
     } else {
-      // Reenviar el mensaje a todos los clientes conectados incluyendo el nombre de usuario
       io.emit('message', {
         username: socket.username,
         message: msg
@@ -82,9 +71,8 @@ io.on('connect', (socket) => {
     }
   });
 
-  // Función para manejar comandos
   function handleCommand(msg, socket) {
-    const command = msg.split(' ')[0]; // Obtener el comando sin los argumentos
+    const command = msg.split(' ')[0];
     switch (command) {
       case '/help':
         socket.emit('message', {
@@ -121,7 +109,6 @@ io.on('connect', (socket) => {
   }
 });
 
-// Lanzar el servidor HTTP
 server.listen(PUERTO, () => {
   console.log(`Escuchando en puerto: ${PUERTO}`);
 });
