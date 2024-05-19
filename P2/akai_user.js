@@ -89,130 +89,139 @@ function initializeCart() {
     const storedCartItems = getCookie("cartItems");
     if (storedCartItems) {
         cartItems = JSON.parse(storedCartItems);
-        cartItems.forEach(item => {
-            const cartItem = document.createElement("li");
-            cartItem.textContent = item;
+        // Calcular el precio total al cargar la página
+        totalPrice = calculateTotalPrice(cartItems);
+        totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
 
-            // Crear botón para eliminar producto del carrito
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Eliminar";
-            deleteButton.classList.add("delete-item");
-            deleteButton.addEventListener("click", function() {
-                cartItemsContainer.removeChild(cartItem);
-                const itemPrice = parseFloat(item.split(' - ')[1].replace(' €', ''));
-                totalPrice -= itemPrice;
-                totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
-
-                // Remover producto del array del carrito
-                const index = cartItems.indexOf(item);
-                if (index !== -1) {
-                    cartItems.splice(index, 1);
-                }
-
-                // Actualizar la cookie del carrito
-                setCookie("cartItems", JSON.stringify(cartItems), 30); // Cookie válida por 30 días
-
-                // Ocultar el contenido del carrito si está vacío
-                if (cartItemsContainer.childElementCount === 0) {
-                    cartContent.style.display = "none";
-                    checkoutButton.style.display = "none"; // Ocultar botón de finalizar compra
-                    totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
-                    totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
-                }
-
-                // Ocultar el botón de finalizar compra si no hay elementos en el carrito
-                if (cartItems.length === 0) {
-                    checkoutButton.style.display = "none";
-                }
-            });
-
-            // Agregar botón de eliminar al elemento del carrito
-            cartItem.appendChild(deleteButton);
-            cartItemsContainer.appendChild(cartItem);
-        });
+        // Mostrar los elementos del carrito
+        showCartItems(cartItems, cartItemsContainer);
 
         // Mostrar el contenido del carrito si hay elementos
         if (cartItems.length > 0) {
             cartContent.style.display = "block";
-            checkoutButton.style.display = "block"; // Mostrar botón de finalizar compra
+            checkoutButton.style.display = "block";
         } else {
-            // Mostrar el contenido del carrito como vacío si no hay elementos
+            // Ocultar el contenido del carrito si no hay elementos
             cartContent.style.display = "none";
             checkoutButton.style.display = "none";
-            totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
-            totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
         }
     } else {
-        // Mostrar el contenido del carrito como vacío si no hay elementos
+        // Ocultar el contenido del carrito si no hay elementos
         cartContent.style.display = "none";
         checkoutButton.style.display = "none";
-        totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
-        totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
     }
 
     // Agregar eventos a los botones "Agregar al carrito"
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function(event) {
-            const productContainer = event.target.closest(".product");
+            // Obtener detalles del producto
             const productName = document.getElementById("product-name").textContent;
             const productPriceText = document.getElementById("product-price").textContent;
             const productPrice = parseFloat(productPriceText.replace('Precio: ', '').replace(' €', ''));
 
-            // Crear elemento de lista para el carrito
-            const cartItem = document.createElement("li");
-            cartItem.textContent = `${productName} - ${productPrice} €`;
+            // Añadir producto al carrito
+            const cartItem = `${productName} - ${productPrice.toFixed(2)} €`;
+            cartItems.push(cartItem); // Agregar al array de carrito
+
+            // Actualizar la cookie del carrito
+            setCookie("cartItems", JSON.stringify(cartItems), 30); // Cookie válida por 30 días
+
+            // Actualizar y mostrar el total
+            totalPrice += productPrice;
+            totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
+
+            // Mostrar el contenido del carrito si está oculto
+            if (cartContent.style.display === "none") {
+                cartContent.style.display = "block";
+                checkoutButton.style.display = "block"; // Mostrar botón de finalizar compra
+            }
+
+            // Mostrar el elemento añadido en el carrito
+            const cartItemElement = document.createElement("li");
+            cartItemElement.textContent = cartItem;
 
             // Crear botón para eliminar producto del carrito
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "Eliminar";
             deleteButton.classList.add("delete-item");
             deleteButton.addEventListener("click", function() {
-                cartItemsContainer.removeChild(cartItem);
-                totalPrice -= productPrice;
+                // Remover del DOM
+                cartItemsContainer.removeChild(cartItemElement);
+
+                // Calcular el precio a restar
+                const itemPrice = parseFloat(cartItem.split(' - ')[1].replace(' €', ''));
+                totalPrice -= itemPrice;
                 totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
 
-                // Remover producto del array del carrito
-                const index = cartItems.indexOf(`${productName} - ${productPrice} €`);
+                // Remover del array de carrito
+                const index = cartItems.indexOf(cartItem);
                 if (index !== -1) {
                     cartItems.splice(index, 1);
                 }
 
                 // Actualizar la cookie del carrito
-                setCookie("cartItems", JSON.stringify(cartItems), 30); // Cookie válida por 30 días
+                setCookie("cartItems", JSON.stringify(cartItems), 30); 
 
-                // Ocultar el contenido del carrito si está vacío
-                if (cartItemsContainer.childElementCount === 0) {
+                // Ocultar el carrito si está vacío
+                if (cartItems.length === 0) {
                     cartContent.style.display = "none";
-                    checkoutButton.style.display = "none"; // Ocultar botón de finalizar compra
-                    totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
-                    totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
+                    checkoutButton.style.display = "none"; 
                 }
 
-                // Ocultar el botón de finalizar compra si no hay elementos en el carrito
+                // Ocultar el botón si no hay productos en el carrito
                 if (cartItems.length === 0) {
                     checkoutButton.style.display = "none";
                 }
             });
 
-            // Agregar botón de eliminar al elemento del carrito
-            cartItem.appendChild(deleteButton);
-            cartItemsContainer.appendChild(cartItem);
-
-            totalPrice += productPrice;
-            totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
-
-            if (cartContent.style.display === "none") {
-                cartContent.style.display = "block";
-                checkoutButton.style.display = "block"; // Mostrar botón de finalizar compra
-            }
-
-            cartItems.push(`${productName} - ${productPrice} €`);
-            setCookie("cartItems", JSON.stringify(cartItems), 30); // Actualizar la cookie del carrito
+            // Agregar el botón de eliminar al elemento del carrito
+            cartItemElement.appendChild(deleteButton);
+            cartItemsContainer.appendChild(cartItemElement);
         });
     });
 
-    // Verificar si hay elementos en el carrito para mostrar u ocultar el botón de finalizar compra
-    if (cartItems.length === 0) {
-        checkoutButton.style.display = "none";
+    // Función para calcular el precio total del carrito
+    function calculateTotalPrice(items) {
+        return items.reduce((total, item) => {
+            const itemPrice = parseFloat(item.split(' - ')[1].replace(' €', ''));
+            return total + itemPrice;
+        }, 0);
+    }
+
+    // Función para mostrar los elementos del carrito
+    function showCartItems(items, container) {
+        items.forEach(item => {
+            const cartItemElement = document.createElement("li");
+            cartItemElement.textContent = item;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Eliminar";
+            deleteButton.classList.add("delete-item");
+            deleteButton.addEventListener("click", function() {
+                container.removeChild(cartItemElement);
+                const itemPrice = parseFloat(item.split(' - ')[1].replace(' €', ''));
+                totalPrice -= itemPrice;
+                totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
+
+                const index = cartItems.indexOf(item);
+                if (index !== -1) {
+                    cartItems.splice(index, 1);
+                }
+
+                setCookie("cartItems", JSON.stringify(cartItems), 30); 
+
+                if (cartItems.length === 0) {
+                    cartContent.style.display = "none";
+                    checkoutButton.style.display = "none"; 
+                }
+
+                if (cartItems.length === 0) {
+                    checkoutButton.style.display = "none";
+                }
+            });
+
+            cartItemElement.appendChild(deleteButton);
+            container.appendChild(cartItemElement);
+        });
     }
 }
