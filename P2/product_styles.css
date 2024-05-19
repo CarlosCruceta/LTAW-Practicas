@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-family: 'Dosis', sans-serif;
     color: #b7b7b7;
-    background-color: #000;
+    background-color: #161515;
 }
 
 .container {
@@ -39,7 +39,6 @@ body {
 
 .description {
     flex: 1;
-    max-width: 50%;
     height: 100vh;
     color: #b7b7b7;
     display: flex;
@@ -58,6 +57,10 @@ body {
 #product-price {
     margin-top: 10px;
     font-size: 18px;
+}
+
+#product-description {
+    max-width: 800px;
 }
 
 #description-image {

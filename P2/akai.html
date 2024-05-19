@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="akai.css">
+    <link rel="stylesheet" href="product_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,47 +16,21 @@
     <div class="header">
         <img src="imagenes/Logo_finalR.png" alt="Logo" sizes="32x32">
         <h1 id="title">TOUCH & GROOVE</h1>
-        <div class="dropdown">
-            <button class="dropbtn"><i class="material-icons" style="font-size:50px;">menu</i></button>
-            <div class="dropdown-content">
-                <a href="index.html">HOME</a>
-                <a href="maschine.html">NI Maschine mk3</a>
-                <a href="novation.html">Novation Circuit Tracks</a>
-            </div>
-        </div>
+        <a href="index.html">Página principal</a>
     </div>
     <div class="container">
         <div class="description">
-            <h1 id="product-name">AKAI MPC X SE</h1>
-            <img id ="description-image" src="imagenes/akai_principalR2.png">
-            <div class="description-text">
-                <p><b>Akai MPC X SE</b> con su icónico flujo de trabajo y las funciones optimizadas en el tiempo,
-                     continúa siendo la plataforma de producción de muestreo y secuenciación líder para 
-                     cada generación. Con su vía de color retro, MPC X SE mantiene la leyenda de la
-                      MPC y la tecnología de música de vanguardia</p>
-            </div>
-        </div>
-        <div class="derecha">
+            <h1 id="product-name"></h1>
+            <p id="product-price">Precio: </p>
             <div class="columna">
-                <div class="image-text" id="image-text"></div>
-                <div class="image-container">
-                    <img src="imagenes/controles_akaiR2.jpg" alt="Producto 3" class="product-image" data-index="0">
-                    <img src="imagenes/pantalla_akaiR2.jpg" alt="Producto 4" class="product-image" data-index="1">
-                    <img src="imagenes/conexiones_akaiR.png" alt="Producto 2" class="product-image" data-index="2">
-                    <img src="imagenes/pads_akaiR2.png" alt="Producto 1" class="product-image" data-index="3">
-                    
+                <div class="description-text">
+                    <p id="product-description"></p>
                 </div>
             </div>
-            <div class="columna">
-                <div class="dot-container" id="dot-container">
-                    <span class="dot" onclick="changeImage(0)"></span>
-                    <span class="dot" onclick="changeImage(1)"></span>
-                    <span class="dot" onclick="changeImage(2)"></span>
-                    <span class="dot" onclick="changeImage(3)"></span>
-                </div>
-            </div>
+            <img id="description-image" src="" alt="AKAI MPC X SE Imagen">
+            
         </div>
     </div>
-    <script src="akai.js"></script>
+    <script src="akai_user.js"></script>
 </body>
 </html>

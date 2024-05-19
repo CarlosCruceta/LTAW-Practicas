@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Dosis', sans-serif;
+    color: #b7b7b7;
+    background-color: #161515;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #ec9572;
+    color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header img {
+    width: 50px;
+    height: 50px;
+    padding-left: 8%;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 40px;
+    padding-right: 60%;
+}
+
+.header a {
+    margin: 0;
+    font-size: 20px;
+    padding-right: 5%;
+}
+
+.description {
+    flex: 1;
+    max-width: 50%;
+    height: 100vh;
+    color: #b7b7b7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#product-name {
+    font-size: 36px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#product-price {
+    margin-top: 10px;
+    font-size: 22px;
+}
+
+#product-description {
+    max-width: 600px;
+    margin-bottom: 4%;
+}
+
+#description-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.description-text {
+    text-align: justify;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10%;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-to-cart {
+    background-color: #ec9572;
+    color: black;
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    border: none;
+    cursor: pointer;
+    padding: 8px; /* Ajusta el tamaño del botón */
+    margin-bottom: 10px; /* Opcional: Añade margen inferior para separar del siguiente elemento */
+}
+.dropdown {
+    position: relative;
+    cursor: pointer;
+    margin-left: 10px; /* Ajusta el margen izquierdo para separar del botón */
+}
+
+.dropdown button {
+    background-color: #ec9572;
+    color: black;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-right: 10px; /* Ajusta el margen derecho para separar del carrito */
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    display: none;
+    color: #000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}

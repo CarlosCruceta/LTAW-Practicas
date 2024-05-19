@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="novation.css">
+    <link rel="stylesheet" href="product_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,47 +16,20 @@
     <div class="header">
         <img src="imagenes/Logo_finalR.png" alt="Logo" sizes="32x32">
         <h1 id="title">TOUCH & GROOVE</h1>
-        <div class="dropdown">
-            <button class="dropbtn"><i class="material-icons" style="font-size:50px;">menu</i></button>
-            <div class="dropdown-content">
-                <a href="index.html">HOME</a>
-                <a href="maschine.html">NI Maschine MK3</a>
-                <a href="akai.html">Akai MPC X SE</a>
-            </div>
-        </div>
+        <a href="index.html">Página principal</a>
     </div>
     <div class="container">
         <div class="description">
-            <h1 id="product-name">NOVATION CIRCUIT TRACKS</h1>
-            <img id ="description-image" src="imagenes/novation_principalR2.png">
-            <div class="description-text">
-                <p>"Si lo que buscas es rapidez en un modelo intuitivo y directo <b>Novation Circuit Tracks</b> es tu producto. 
-                    No hay desplazamientos ni menús complejos, lo único que aumenta es la creatividad. 
-                    Controla tus baterías y efectos en tiempo real desde cualquier parte gracias a su 
-                    batería recargable incorporada."</p>
-            </div>
-        </div>
-        <div class="derecha">
+            <h1 id="product-name"></h1>
+            <p id="product-price">Precio: </p>
             <div class="columna">
-                <div class="image-text" id="image-text"></div>
-                <div class="image-container">
-                    <img src="imagenes/botones_novation.jpg" alt="Producto 3" class="product-image" data-index="0">
-                    <img src="imagenes/novation_gris.jpg" alt="Producto 4" class="product-image" data-index="1">
-                    <img src="imagenes/conexiones_novationR.jpg" alt="Producto 2" class="product-image" data-index="2">
-                    <img src="imagenes/controles_novationrR.jpg" alt="Producto 1" class="product-image" data-index="3">
-                    
+                <div class="description-text">
+                    <p id="product-description"></p>
                 </div>
             </div>
-            <div class="columna">
-                <div class="dot-container" id="dot-container">
-                    <span class="dot" onclick="changeImage(0)"></span>
-                    <span class="dot" onclick="changeImage(1)"></span>
-                    <span class="dot" onclick="changeImage(2)"></span>
-                    <span class="dot" onclick="changeImage(3)"></span>
-                </div>
-            </div>
+            <img id="description-image" src="" alt="Novation Circuit Tracks Imagen">
         </div>
     </div>
-    <script src="novation.js"></script>
+    <script src="novation_user.js"></script>
 </body>
 </html>
