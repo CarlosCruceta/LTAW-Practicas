@@ -15,18 +15,21 @@
     {
       "nombre": "NI Maschine MK3",
       "descripcion": "Native Instruments Maschine MK3 redefine la experiencia de producción musical, ofreciendo innovaciones que elevan tu creatividad y eficiencia. Descubre las características clave que hacen de esta caja de ritmos una herramienta esencial para cualquier productor.",
+      "imagen": "imagenes/maschine_principal.png",
       "precio": 299,
       "cantidad_en_stock": 50
     },
     {
       "nombre": "Novation Circuit Tracks",
       "descripcion": "Si lo que buscas es rapidez en un modelo intuitivo y directo <b>Novation Circuit Tracks es tu producto. No hay desplazamientos ni menús complejos, lo único que aumenta es la creatividad. Controla tus baterías y efectos en tiempo real desde cualquier parte gracias a su batería recargable incorporada.",
+      "imagen": "imagenes/novation_principalR2.png",
       "precio": 349,
       "cantidad_en_stock": 30
     },
     {
       "nombre": "Akai MPC X SE",
       "descripcion": "Akai MPC X SE con su icónico flujo de trabajo y las funciones optimizadas en el tiempo,continúa siendo la plataforma de producción de muestreo y secuenciación líder para cada generación. Con su vía de color retro, MPC X SE mantiene la leyenda de laMPC y la tecnología de música de vanguardia",
+      "imagen": "imagenes/akai_principalR2.png",
       "precio": 2199,
       "cantidad_en_stock": 20
     }
@@ -48,9 +51,7 @@
       "productos_comprados": [
         "Novation Circuit Tracks"
       ]
-    },
-    {
-      "-----------------------------256754062826532272473758567219\r\nContent-Disposition: form-data; name": "\"shipping-address\"\r\n\r\nCalle Principal 123\r\n-----------------------------256754062826532272473758567219\r\nContent-Disposition: form-data; name=\"credit-card\"\r\n\r\n1234-5678-9012-3456\r\n-----------------------------256754062826532272473758567219--\r\n"
     }
+ 
   ]
 }

@@ -140,7 +140,6 @@ body {
 }
 
 .dropdown-content {
-    display: none;
     position: absolute;
     backdrop-filter:blur(10px);
     z-index: 1;
@@ -176,6 +175,3 @@ body {
     
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
