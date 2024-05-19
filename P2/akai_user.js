@@ -81,6 +81,7 @@ function initializeCart() {
     const cartItemsContainer = document.getElementById("cart-items");
     const cartContent = document.getElementById("cart-content");
     const totalPriceElement = document.getElementById("total-price");
+    const checkoutButton = document.getElementById("checkout-button");
     let totalPrice = 0;
     let cartItems = [];
 
@@ -114,6 +115,14 @@ function initializeCart() {
                 // Ocultar el contenido del carrito si está vacío
                 if (cartItemsContainer.childElementCount === 0) {
                     cartContent.style.display = "none";
+                    checkoutButton.style.display = "none"; // Ocultar botón de finalizar compra
+                    totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
+                    totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
+                }
+
+                // Ocultar el botón de finalizar compra si no hay elementos en el carrito
+                if (cartItems.length === 0) {
+                    checkoutButton.style.display = "none";
                 }
             });
 
@@ -125,7 +134,20 @@ function initializeCart() {
         // Mostrar el contenido del carrito si hay elementos
         if (cartItems.length > 0) {
             cartContent.style.display = "block";
+            checkoutButton.style.display = "block"; // Mostrar botón de finalizar compra
+        } else {
+            // Mostrar el contenido del carrito como vacío si no hay elementos
+            cartContent.style.display = "none";
+            checkoutButton.style.display = "none";
+            totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
+            totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
         }
+    } else {
+        // Mostrar el contenido del carrito como vacío si no hay elementos
+        cartContent.style.display = "none";
+        checkoutButton.style.display = "none";
+        totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
+        totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
     }
 
     // Agregar eventos a los botones "Agregar al carrito"
@@ -161,6 +183,14 @@ function initializeCart() {
                 // Ocultar el contenido del carrito si está vacío
                 if (cartItemsContainer.childElementCount === 0) {
                     cartContent.style.display = "none";
+                    checkoutButton.style.display = "none"; // Ocultar botón de finalizar compra
+                    totalPrice = 0; // Establecer el total a 0 cuando el carrito está vacío
+                    totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
+                }
+
+                // Ocultar el botón de finalizar compra si no hay elementos en el carrito
+                if (cartItems.length === 0) {
+                    checkoutButton.style.display = "none";
                 }
             });
 
@@ -173,10 +203,16 @@ function initializeCart() {
 
             if (cartContent.style.display === "none") {
                 cartContent.style.display = "block";
+                checkoutButton.style.display = "block"; // Mostrar botón de finalizar compra
             }
 
             cartItems.push(`${productName} - ${productPrice} €`);
             setCookie("cartItems", JSON.stringify(cartItems), 30); // Actualizar la cookie del carrito
         });
     });
+
+    // Verificar si hay elementos en el carrito para mostrar u ocultar el botón de finalizar compra
+    if (cartItems.length === 0) {
+        checkoutButton.style.display = "none";
+    }
 }
