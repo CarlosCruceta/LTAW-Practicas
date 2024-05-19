@@ -1,6 +1,7 @@
 //-- Cargar las dependencias
 const socket = require('socket.io');
 const http = require('http');
+const path = require('path');
 const express = require('express');
 const colors = require('colors');
 
@@ -17,33 +18,21 @@ const io = socket(server);
 
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
-
 app.get('/', (req, res) => {
-  res.send(`
-    <html>
-      <head>
-        <title>Ingreso al Chat</title>
-      </head>
-      <body>
-        <h1>Bienvenido a mi aplicación Web!!!</h1>
-        <form id="usernameForm" action="/chat.html">
-          <label for="username">Nombre de Usuario:</label>
-          <input type="text" id="username" name="username" required>
-          <button type="submit">Acceder al chat</button>
-        </form>
-        <script>
-          document.getElementById('usernameForm').onsubmit = function() {
-            const username = document.getElementById('username').value;
-            if (!username) {
-              alert('Por favor, ingresa un nombre de usuario.');
-              return false;
-            }
-            return true;
-          }
-        </script>
-      </body>
-    </html>
-  `);
+  // Utiliza res.sendFile para enviar el archivo chat.htm
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/chat.html', (req, res) => {
+  // Extraer el nombre de usuario de la query string
+  const username = req.query.username;
+  console.log(username)
+  if (!username) {
+    return res.status(400).send('Nombre de usuario no proporcionado');
+  }
+
+  // Renderizar la página chat.html y pasar el nombre de usuario como variable
+  res.sendFile(path.join(__dirname, 'chat.html'));
 });
 
 //-- Esto es necesario para que el servidor le envíe al cliente la

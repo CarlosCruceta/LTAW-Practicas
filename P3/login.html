@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -9,11 +9,20 @@
 </head>
 
 <body>
-  <form action="/chat" method="post">
-    <div class="form-group">
+    <form id="username_form">
+        <label for="username">Ingresa tu nombre de usuario:</label>
         <input type="text" id="username" name="username" required>
-    </div>
-    <input type="submit" value="Login" class="login-button"/>
-  </form>
+        <button type="submit">Ingresar al chat</button>
+      </form>
+      
+      <script>
+        document.getElementById("username_form").addEventListener("submit", function(event) {
+          event.preventDefault(); // Evitar que se recargue la página
+          
+          var username = document.getElementById("username").value;
+          // Redireccionar a la página de chat.html con el nombre de usuario como parámetro
+          window.location.href = "chat.html?username=" + encodeURIComponent(username);
+        });
+      </script>
 </body>
 </html>
