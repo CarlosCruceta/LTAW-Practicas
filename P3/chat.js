@@ -7,93 +7,121 @@ const colors = require('colors');
 
 const PUERTO = 9090;
 
-//-- Crear una nueva aplciacion web
+//-- Crear una nueva aplicación web
 const app = express();
 
-//-- Crear un servidor, asociado a la App de express
-const server = http.Server(app);
+//-- Crear un servidor HTTP asociado a la App de express
+const server = http.createServer(app);
 
-//-- Crear el servidor de websockets, asociado al servidor http
+//-- Crear el servidor de websockets, asociado al servidor HTTP
 const io = socket(server);
 
-//-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
-//-- Definir el punto de entrada principal de mi aplicación web
+// Puntos de entrada de la aplicación web
+
+// Definir el punto de entrada principal de la aplicación web
 app.get('/', (req, res) => {
-  // Utiliza res.sendFile para enviar el archivo chat.htm
+  // Utiliza res.sendFile para enviar el archivo login.html
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-app.get('/chat.html', (req, res) => {
-  // Extraer el nombre de usuario de la query string
-  const username = req.query.username;
-  console.log(username)
-  if (!username) {
-    return res.status(400).send('Nombre de usuario no proporcionado');
-  }
 
-  // Renderizar la página chat.html y pasar el nombre de usuario como variable
-  res.sendFile(path.join(__dirname, 'chat.html'));
-});
+// Servir archivos estáticos (incluyendo Socket.IO client)
+app.use('/', express.static(__dirname));
 
-//-- Esto es necesario para que el servidor le envíe al cliente la
-//-- biblioteca socket.io para el cliente
-app.use('/', express.static(__dirname +'/'));
-
-//-- El directorio publico contiene ficheros estáticos
+// Directorio público contiene archivos estáticos
 app.use(express.static('public'));
 
 //------------------- GESTION SOCKETS IO
-//-- Evento: Nueva conexion recibida
+
+// Evento: Nueva conexión recibida
 io.on('connect', (socket) => {
-  socket.send("")
-  const socketId = socket.id;
-  io.to(socketId).emit('message', 'Bienvenido');
-  io.send("Nuevo miembro se unió al chat");
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
-  //-- Evento de desconexión
-  socket.on('disconnect', function(){
-    console.log('** CONEXIÓN TERMINADA **'.yellow);
-    io.send("Miembro se salió del chat");
-  });  
+  // Manejar evento de ingreso de nombre de usuario
+  socket.on('username', (username) => {
+    console.log(`Usuario '${username}' conectado`);
+    socket.username = username; // Asignar nombre de usuario al socket
 
-  //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
-  socket.on("message", (msg)=> {
-    console.log("Mensaje Recibido!: " + msg.blue);
+    // Emitir mensaje de bienvenida al usuario conectado
+    socket.emit('message', {
+      username: 'Servidor',
+      message: 'Bienvenido al chat!'
+    });
 
-    //-- Verificar si el mensaje es un comando especial
-    if (msg.startsWith('/')) {
-      handleCommand(msg, socket);
-    } else {
-      //-- Reenviar el mensaje a todos los clientes conectados excepto al que lo envió
-      io.send(msg);
+    // Emitir mensaje a todos los clientes que un nuevo miembro se unió al chat
+    io.emit('message', {
+      username: 'Servidor',
+      message: `Nuevo miembro '${username}' se unió al chat`
+    });
+  });
+
+  // Manejar evento de desconexión
+  socket.on('disconnect', () => {
+    if (socket.username) {
+      io.emit('message', {
+        username: 'Servidor',
+        message: `Miembro '${socket.username}' se desconectó`
+      });
+      console.log(`** CONEXIÓN TERMINADA: Usuario '${socket.username}' **`.yellow);
     }
   });
 
+  // Manejar mensaje recibido
+  socket.on('message', (msg) => {
+    console.log(`Mensaje recibido de '${socket.username}': ${msg}`.blue);
+
+    // Verificar si el mensaje es un comando especial
+    if (msg.startsWith('/')) {
+      handleCommand(msg, socket);
+    } else {
+      // Reenviar el mensaje a todos los clientes conectados incluyendo el nombre de usuario
+      io.emit('message', {
+        username: socket.username,
+        message: msg
+      });
+    }
+  });
+
+  // Función para manejar comandos
   function handleCommand(msg, socket) {
     const command = msg.split(' ')[0]; // Obtener el comando sin los argumentos
     switch (command) {
       case '/help':
-        socket.send('Comandos soportados:\n/help - Mostrar lista de comandos\n/list - Mostrar el número de usuarios conectados\n/hello - Saludar\n/date - Mostrar la fecha');
+        socket.emit('message', {
+          username: 'Servidor',
+          message: 'Comandos soportados:\n/help - Mostrar lista de comandos\n/list - Mostrar el número de usuarios conectados\n/hello - Saludar\n/date - Mostrar la fecha'
+        });
         break;
       case '/list':
-        socket.send(`Número de usuarios conectados: ${io.engine.clientsCount}`);
+        socket.emit('message', {
+          username: 'Servidor',
+          message: `Número de usuarios conectados: ${io.engine.clientsCount}`
+        });
         break;
       case '/hello':
-        socket.send('¡Hola!');
+        socket.emit('message', {
+          username: 'Servidor',
+          message: '¡Hola!'
+        });
         break;
       case '/date':
         const currentDate = new Date().toDateString();
-        socket.send(`Fecha actual : ${currentDate}`);
+        socket.emit('message', {
+          username: 'Servidor',
+          message: `Fecha actual: ${currentDate}`
+        });
         break;
       default:
-        socket.send('Comando no reconocido. Escribe /help para ver la lista de comandos disponibles.');
+        socket.emit('message', {
+          username: 'Servidor',
+          message: 'Comando no reconocido. Escribe /help para ver la lista de comandos disponibles.'
+        });
         break;
     }
   }
 });
 
-//-- Lanzar el servidor HTTP
-//-- ¡Que empiecen los juegos de los WebSockets!
-server.listen(PUERTO);
-console.log("Escuchando en puerto: " + PUERTO);
+// Lanzar el servidor HTTP
+server.listen(PUERTO, () => {
+  console.log(`Escuchando en puerto: ${PUERTO}`);
+});
