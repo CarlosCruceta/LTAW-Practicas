@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <title>CHAT</title>
 
   <!-- Cargar la biblioteca Socket.IO. Nos la debe entregar el servidor -->
@@ -14,17 +15,20 @@
 </head>
 
 <body>
-  <h2>CHAT</h2>
-  
   <div id="chat_container">
     <div id="user_list">
-      <!-- Aquí se mostrará la lista de usuarios conectados -->
+      <h3>Usuarios Conectados</h3>
     </div>
     <div id="chat">
-      <input type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
-      <button id="send_button">Enviar</button> 
+      <div class="header" id="header">
+        <h1 id="title">CHAT</h1>
+      </div>
       <h3>Mensajes recibidos</h3>
       <div id="display"></div>
+      <div id="message_input">
+        <input type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
+        <button id="send_button">Enviar</button> 
+      </div>
     </div>
   </div>
 </body>
