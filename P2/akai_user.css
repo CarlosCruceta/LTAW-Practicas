@@ -16,17 +16,25 @@ body {
     color: black;
     padding: 10px;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
 .header img {
-    width: 50px; 
+    width: 50px;
     height: 50px;
+    padding-left: 8%;
 }
 
 .header h1 {
     margin: 0;
     font-size: 40px;
+    padding-right: 60%;
+}
+
+.header a {
+    margin: 0;
+    font-size: 20px;
+    padding-right: 5%;
 }
 
 .description {
@@ -69,18 +77,28 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding-top: 10%;
 }
 
 .product {
+    display: flex;
+    align-items: center;
     margin-bottom: 20px;
 }
 
+.add-to-cart {
+    background-color: #ec9572;
+    color: black;
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    border: none;
+    cursor: pointer;
+    padding: 8px; /* Ajusta el tamaño del botón */
+    margin-bottom: 10px; /* Opcional: Añade margen inferior para separar del siguiente elemento */
+}
 .dropdown {
     position: relative;
-    margin-left: auto;
-    margin-top: 20px;
     cursor: pointer;
+    margin-left: 10px; /* Ajusta el margen izquierdo para separar del botón */
 }
 
 .dropdown button {
@@ -90,6 +108,7 @@ body {
     border: none;
     cursor: pointer;
     padding: 10px 20px;
+    margin-right: 10px; /* Ajusta el margen derecho para separar del carrito */
 }
 
 .dropdown-content {
@@ -102,6 +121,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
     display: none;
+    color: #000;
 }
 
 .dropdown-content a {
