@@ -45,3 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.emit('username', username);
   }
 });
+
+socket.on('usernameError', (error) => {
+  alert(error);
+  window.location.reload(); 
+});

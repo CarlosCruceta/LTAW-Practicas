@@ -28,6 +28,14 @@ io.on('connect', (socket) => {
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
   socket.on('username', (username) => {
+    if (usuariosConectados.has(username)) {
+      // Si el nombre de usuario ya está en uso, enviar un mensaje de error
+      socket.emit('usernameError', 'El nombre de usuario ya está en uso. Por favor, elige otro.');
+      return;
+    }
+
+
+
     console.log(`Usuario '${username}' conectado`);
     socket.username = username;
     usuariosConectados.add(username); // Agregar usuario al conjunto de usuarios conectados

@@ -29,13 +29,12 @@ body {
   }
   
   #display {
-    flex: 1;
+    height: 500px; /* Ajusta la altura a lo que necesites */
     border: 1px solid #ccc;
     padding: 10px;
     overflow-y: auto;
     margin-bottom: 10px;
   }
-  
   #message_input {
     display: flex;
   }
@@ -55,6 +54,7 @@ body {
     color: white;
     cursor: pointer;
     border-radius: 0 4px 4px 0;
+    margin-left: 1%;
   }
   
   #send_button:hover {
