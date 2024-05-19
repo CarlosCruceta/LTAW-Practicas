@@ -1,3 +1,30 @@
+// Función para establecer una cookie
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+// Función para obtener el valor de una cookie específica
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1, cookie.length);
+        }
+        if (cookie.indexOf(nameEQ) === 0) {
+            return cookie.substring(nameEQ.length, cookie.length);
+        }
+    }
+    return null;
+}
+
 // Función para obtener los productos del archivo JSON
 function fetchProducts() {
     var xhr = new XMLHttpRequest();
@@ -57,6 +84,51 @@ function initializeCart() {
     let totalPrice = 0;
     let cartItems = [];
 
+    // Obtener los elementos del carrito desde la cookie al cargar la página
+    const storedCartItems = getCookie("cartItems");
+    if (storedCartItems) {
+        cartItems = JSON.parse(storedCartItems);
+        cartItems.forEach(item => {
+            const cartItem = document.createElement("li");
+            cartItem.textContent = item;
+
+            // Crear botón para eliminar producto del carrito
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Eliminar";
+            deleteButton.classList.add("delete-item");
+            deleteButton.addEventListener("click", function() {
+                cartItemsContainer.removeChild(cartItem);
+                const itemPrice = parseFloat(item.split(' - ')[1].replace(' €', ''));
+                totalPrice -= itemPrice;
+                totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
+
+                // Remover producto del array del carrito
+                const index = cartItems.indexOf(item);
+                if (index !== -1) {
+                    cartItems.splice(index, 1);
+                }
+
+                // Actualizar la cookie del carrito
+                setCookie("cartItems", JSON.stringify(cartItems), 30); // Cookie válida por 30 días
+
+                // Ocultar el contenido del carrito si está vacío
+                if (cartItemsContainer.childElementCount === 0) {
+                    cartContent.style.display = "none";
+                }
+            });
+
+            // Agregar botón de eliminar al elemento del carrito
+            cartItem.appendChild(deleteButton);
+            cartItemsContainer.appendChild(cartItem);
+        });
+
+        // Mostrar el contenido del carrito si hay elementos
+        if (cartItems.length > 0) {
+            cartContent.style.display = "block";
+        }
+    }
+
+    // Agregar eventos a los botones "Agregar al carrito"
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function(event) {
             const productContainer = event.target.closest(".product");
@@ -64,9 +136,11 @@ function initializeCart() {
             const productPriceText = document.getElementById("product-price").textContent;
             const productPrice = parseFloat(productPriceText.replace('Precio: ', '').replace(' €', ''));
 
+            // Crear elemento de lista para el carrito
             const cartItem = document.createElement("li");
             cartItem.textContent = `${productName} - ${productPrice} €`;
 
+            // Crear botón para eliminar producto del carrito
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "Eliminar";
             deleteButton.classList.add("delete-item");
@@ -75,18 +149,22 @@ function initializeCart() {
                 totalPrice -= productPrice;
                 totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
 
+                // Remover producto del array del carrito
                 const index = cartItems.indexOf(`${productName} - ${productPrice} €`);
                 if (index !== -1) {
                     cartItems.splice(index, 1);
                 }
 
+                // Actualizar la cookie del carrito
+                setCookie("cartItems", JSON.stringify(cartItems), 30); // Cookie válida por 30 días
+
+                // Ocultar el contenido del carrito si está vacío
                 if (cartItemsContainer.childElementCount === 0) {
                     cartContent.style.display = "none";
                 }
-
-                localStorage.setItem("cartItems", JSON.stringify(cartItems));
             });
 
+            // Agregar botón de eliminar al elemento del carrito
             cartItem.appendChild(deleteButton);
             cartItemsContainer.appendChild(cartItem);
 
@@ -98,45 +176,7 @@ function initializeCart() {
             }
 
             cartItems.push(`${productName} - ${productPrice} €`);
-            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            setCookie("cartItems", JSON.stringify(cartItems), 30); // Actualizar la cookie del carrito
         });
     });
-
-    const storedCartItems = localStorage.getItem("cartItems");
-    if (storedCartItems) {
-        cartItems = JSON.parse(storedCartItems);
-        cartItems.forEach(item => {
-            const cartItem = document.createElement("li");
-            cartItem.textContent = item;
-
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Eliminar";
-            deleteButton.classList.add("delete-item");
-            deleteButton.addEventListener("click", function() {
-                cartItemsContainer.removeChild(cartItem);
-                const itemPrice = parseFloat(item.split(' - ')[1].replace(' €', ''));
-                totalPrice -= itemPrice;
-                totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} €`;
-
-                const index = cartItems.indexOf(item);
-                if (index !== -1) {
-                    cartItems.splice(index, 1);
-                }
-
-                if (cartItemsContainer.childElementCount === 0) {
-                    cartContent.style.display = "none";
-                }
-
-                localStorage.setItem("cartItems", JSON.stringify(cartItems));
-            });
-
-            cartItem.appendChild(deleteButton);
-            cartItemsContainer.appendChild(cartItem);
-        });
-
-        if (cartItems.length > 0) {
-            cartContent.style.display = "block";
-        }
-    }
 }
-
