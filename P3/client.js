@@ -40,7 +40,7 @@ msg_entry.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const username = prompt("Por favor, ingresa tu nombre de usuario:");
+  const username = prompt("Por favor, ingresa tu nickname:");
   if (username) {
     socket.emit('username', username);
   }

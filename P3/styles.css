@@ -1,12 +1,18 @@
 body {
     display: flex;
     font-family: Arial, sans-serif;
+    background-color: #252525;
   }
 
   .header {
     text-align: center;
+    color: #ec9572;
   }
-  
+
+  h3{
+    color: #ec9572;
+  }
+
   #chat_container {
     display: flex;
     width: 100%;
@@ -15,9 +21,13 @@ body {
   
   #user_list {
     width: 10%;
-    padding: 10px;
-    border-right: 1px solid #ccc;
+    padding: 8px;
+    border-right: 1px solid #ec9572;;
     box-sizing: border-box;
+    color: aliceblue;
+  }
+  #user_list h3 {
+    color: #ec9572;
   }
   
   #chat {
@@ -34,6 +44,7 @@ body {
     padding: 10px;
     overflow-y: auto;
     margin-bottom: 10px;
+    background-color: aliceblue;
   }
   #message_input {
     display: flex;
@@ -49,9 +60,8 @@ body {
   #send_button {
     padding: 10px 20px;
     border: 1px solid #ccc;
-    border-left: none;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #ec9572;
+    color: black;
     cursor: pointer;
     border-radius: 0 4px 4px 0;
     margin-left: 1%;

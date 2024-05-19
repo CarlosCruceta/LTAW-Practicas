@@ -30,7 +30,7 @@ io.on('connect', (socket) => {
   socket.on('username', (username) => {
     if (usuariosConectados.has(username)) {
       // Si el nombre de usuario ya está en uso, enviar un mensaje de error
-      socket.emit('usernameError', 'El nombre de usuario ya está en uso. Por favor, elige otro.');
+      socket.emit('usernameError', 'El nickname ya está en uso. Por favor, elige otro.');
       return;
     }
 
@@ -44,7 +44,7 @@ io.on('connect', (socket) => {
 
     socket.emit('message', {
       username: SERVER,
-      message: `Bienvenido al chat, ${username}!`
+      message: `Bienvenid@ al chat, ${username}!`
     });
 
     io.emit('message', {
